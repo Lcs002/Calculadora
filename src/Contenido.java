@@ -5,20 +5,23 @@ import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 
 public class Contenido extends JPanel {
-    private Font font = new Font("Tahoma", Font.PLAIN, 24);
+    private Font font;
     private String texto ;
     private JLabel label;
     private LinkedList<CBoton> botones;
-    private CBoton _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, suma, resta, igual;
+    private CBoton _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, suma, resta, mult, igual, reset;
 
     public Contenido() {
         this.setSize(Pantalla.WIDTH, Pantalla.HEIGHT);
         this.setLayout(null);
+        this.setBackground(new Color(54, 54, 54));
 
         // Creamos los objetos necesarios para las variables de esta clase
         this.botones = new LinkedList<CBoton>();
         this.label = new JLabel();
+        this.font = new Font("Tahoma", Font.PLAIN, 36);
         this.label.setFont(this.font);
+        this.label.setForeground(Color.white);
         this.texto = new String();
 
         // Y creamos sus botones
@@ -34,7 +37,9 @@ public class Contenido extends JPanel {
         _9 = new CBoton(CBoton.ID._9);
         suma = new CBoton(CBoton.ID.Suma);
         resta = new CBoton(CBoton.ID.Resta);
+        mult = new CBoton(CBoton.ID.Mult);
         igual = new CBoton(CBoton.ID.Igual);
+        reset = new CBoton(CBoton.ID.Reset);
 
         // Añadimos cada boton a una lista, para facilitar su manejo
         // !!! El orden de adición a la lista afecta como se verán los botones !!! (Una fila son tres adiciones)
@@ -50,10 +55,14 @@ public class Contenido extends JPanel {
         botones.add(suma);
         botones.add(_0);
         botones.add(resta);
+        botones.add(reset);
         botones.add(igual);
+        botones.add(mult);
+
+        System.out.println(botones.size());
 
         // Posicionamos cada objeto
-        int rows = 4; // N filas de botones
+        int rows = 5; // N filas de botones
         int cols = 3; // N columnas de botones
         float btnHeight = (float) (Pantalla.HEIGHT/3)/rows; // Altura de los botones
         float btnWidth = (float) (Pantalla.WIDTH/cols); // Anchura de los botones
@@ -61,10 +70,9 @@ public class Contenido extends JPanel {
         // Los botones:
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                botones.get(i*cols + j).setBounds((int) (j * btnWidth), (int) (Pantalla.HEIGHT/4 * 2 + i * btnHeight + 20), (int) btnWidth, (int) btnHeight);
+                botones.get(i*cols + j).setBounds((int) (j * btnWidth), (int) (Pantalla.HEIGHT - btnHeight * rows + i * btnHeight - 35), (int) btnWidth, (int) btnHeight);
             }
         }
-        igual.setBounds((int) (1 * btnWidth), (int) (Pantalla.HEIGHT/4 * 2 + 4 * btnHeight + 20), (int) btnWidth, (int) btnHeight);
 
         // El texto donde aparecerán los numeros:
         label.setBounds(Pantalla.WIDTH/2 - 100, Pantalla.HEIGHT/4 - 25, 200, 50);
@@ -100,10 +108,14 @@ public class Contenido extends JPanel {
 
     private void updateText() {
         this.label.setText(texto);
-        this.label.setBounds(Pantalla.WIDTH/2 - getTextoPixelWidth()/2, Pantalla.HEIGHT/4 - 25, Pantalla.WIDTH, 50);
+        this.label.setBounds(Pantalla.WIDTH/2 - getTextoPixelWidth()/2, Pantalla.HEIGHT/4 + getTextoPixelHeight()/2, Pantalla.WIDTH, 50);
     }
 
     private int getTextoPixelWidth() {
         return (int) this.font.getStringBounds(texto, new FontRenderContext( new AffineTransform(), true, true)).getWidth();
+    }
+
+    private int getTextoPixelHeight() {
+        return (int) this.font.getStringBounds(texto, new FontRenderContext( new AffineTransform(), true, true)).getHeight();
     }
 }

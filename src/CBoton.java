@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +15,12 @@ public class CBoton extends JButton implements ActionListener {
         this.id = id;
 
         // Asignamos a este boton su texto
+        this.setFont(new Font("Arial", Font.PLAIN, 20));
         this.setText(this.asString());
+        this.setBackground(new Color(105, 105, 105));
+        this.setForeground(Color.white);
+        this.setBorder(new LineBorder(new Color(54, 54, 54)));
+        this.setFocusPainted(false);
 
         // Conectamos el evento de boton presionado a nuestra funcion actionPerformed
         this.addActionListener(this::actionPerformed);
@@ -42,8 +49,12 @@ public class CBoton extends JButton implements ActionListener {
 
     private void butonPresionado() {
         if (this.id == ID.Igual) {
-            System.out.println("aa");
             solve();
+            return;
+        }
+
+        if (this.id == ID.Reset) {
+            Pantalla.contenido.clearTexto();
             return;
         }
 
@@ -66,6 +77,7 @@ public class CBoton extends JButton implements ActionListener {
             case Resta: return " - ";
             case Mult: return " * ";
             case Igual: return " = ";
+            case Reset: return " Reset ";
             default: return " Error: ID not found ";
         }
     }
@@ -158,6 +170,7 @@ public class CBoton extends JButton implements ActionListener {
         Suma,
         Resta,
         Mult,
-        Igual
+        Igual,
+        Reset
     }
 }
