@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 
 public class Contenido extends JPanel {
-    private Font font = new Font("Tahoma", Font.PLAIN, 12);
+    private Font font = new Font("Tahoma", Font.PLAIN, 24);
     private String texto ;
     private JLabel label;
     private LinkedList<CBoton> botones;
