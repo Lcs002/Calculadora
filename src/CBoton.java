@@ -70,6 +70,7 @@ public class CBoton extends JButton implements ActionListener {
         }
     }
 
+    // Seguramente ya exista una lib que haga esto pero bueno...
     private void solve() {
         // i es la posición donde estamos, j será el desplazamiento a la izquierda o derecha respecto a i
         int i, j, start, end;
@@ -109,10 +110,7 @@ public class CBoton extends JButton implements ActionListener {
                 sgn = 1;
 
                 while (i-j >= 0 && Character.isDigit(cuenta.charAt(i-j))) {
-                    if (j == 1)
-                        a = Character.getNumericValue(cuenta.charAt(i-j));
-                    else
-                        a += Character.getNumericValue(cuenta.charAt(i-j)) * 10;
+                    a += Character.getNumericValue(cuenta.charAt(i-j)) * Math.pow(10, j-1);
                     j++;
                 }
 
@@ -121,6 +119,7 @@ public class CBoton extends JButton implements ActionListener {
                     j++;
                 }
 
+                start = i-j+1;
                 j = 1;
 
                 while (i+j < cuenta.length() && cuenta.charAt(i+j) == '-') {
@@ -133,9 +132,13 @@ public class CBoton extends JButton implements ActionListener {
                     j++;
                 }
 
+                end = i+j;
                 b *= sgn;
-                System.out.println(a + b);
+
+                cuenta.replace(start, end, Integer.toString((int) (a+b)));
+                i = start;
             }
+        Pantalla.contenido.setTexto(cuenta.toString());
     }
 
 

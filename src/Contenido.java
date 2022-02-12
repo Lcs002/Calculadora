@@ -1,7 +1,11 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 
 public class Contenido extends JPanel {
+    private Font font = new Font("Tahoma", Font.PLAIN, 12);
     private String texto ;
     private JLabel label;
     private LinkedList<CBoton> botones;
@@ -14,6 +18,7 @@ public class Contenido extends JPanel {
         // Creamos los objetos necesarios para las variables de esta clase
         this.botones = new LinkedList<CBoton>();
         this.label = new JLabel();
+        this.label.setFont(this.font);
         this.texto = new String();
 
         // Y creamos sus botones
@@ -56,11 +61,10 @@ public class Contenido extends JPanel {
         // Los botones:
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                botones.get(i*cols + j).setBounds((int) (j * btnWidth), (int) (Pantalla.HEIGHT/3 * 2 + i * btnHeight - 40), (int) btnWidth, (int) btnHeight);
+                botones.get(i*cols + j).setBounds((int) (j * btnWidth), (int) (Pantalla.HEIGHT/4 * 2 + i * btnHeight + 20), (int) btnWidth, (int) btnHeight);
             }
         }
-
-        igual.setBounds((int) (1 * btnWidth), 100, (int) btnWidth, (int) btnHeight);
+        igual.setBounds((int) (1 * btnWidth), (int) (Pantalla.HEIGHT/4 * 2 + 4 * btnHeight + 20), (int) btnWidth, (int) btnHeight);
 
         // El texto donde aparecerán los numeros:
         label.setBounds(Pantalla.WIDTH/2 - 100, Pantalla.HEIGHT/4 - 25, 200, 50);
@@ -73,24 +77,33 @@ public class Contenido extends JPanel {
 
     // Funciones setters y getters de las variables privadas de la clase
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-        this.label.setText(texto);
-    }
-
     public String getTexto() {
         return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+        updateText();
     }
 
     // Funciones para facilitar el manejo del texto
 
     public void addToTexto(String s) {
         this.texto += s;
-        this.label.setText(texto);
+        updateText();
     }
 
     public void clearTexto() {
         this.texto = "";
+        updateText();
+    }
+
+    private void updateText() {
         this.label.setText(texto);
+        this.label.setBounds(Pantalla.WIDTH/2 - getTextoPixelWidth()/2, Pantalla.HEIGHT/4 - 25, Pantalla.WIDTH, 50);
+    }
+
+    private int getTextoPixelWidth() {
+        return (int) this.font.getStringBounds(texto, new FontRenderContext( new AffineTransform(), true, true)).getWidth();
     }
 }
