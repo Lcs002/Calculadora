@@ -3,10 +3,11 @@ import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Contenido extends JPanel {
     private Font font;
-    private String texto ;
+    private String texto;
     private JLabel label;
     private LinkedList<CBoton> botones;
     private CBoton _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, suma, resta, mult, igual, reset;
@@ -19,7 +20,7 @@ public class Contenido extends JPanel {
         // Creamos los objetos necesarios para las variables de esta clase
         this.botones = new LinkedList<CBoton>();
         this.label = new JLabel();
-        this.font = new Font("Tahoma", Font.PLAIN, 36);
+        this.font = new Font("Tahoma", Font.PLAIN, 40);
         this.label.setFont(this.font);
         this.label.setForeground(Color.white);
         this.texto = new String();
@@ -73,9 +74,6 @@ public class Contenido extends JPanel {
                 botones.get(i*cols + j).setBounds((int) (j * btnWidth), (int) (Pantalla.HEIGHT - btnHeight * rows + i * btnHeight - 35), (int) btnWidth, (int) btnHeight);
             }
         }
-
-        // El texto donde aparecerán los numeros:
-        label.setBounds(Pantalla.WIDTH/2 - 100, Pantalla.HEIGHT/4 - 25, 200, 50);
 
         // Adicionamos a la pantalla cada objeto creado anteriormente
         this.add(label);

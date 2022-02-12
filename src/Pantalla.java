@@ -9,7 +9,8 @@ public class Pantalla extends JFrame {
 
     public static Contenido contenido;
 
-    public Pantalla() {
+    public Pantalla(String title) {
+        super(title);
         contenido = new Contenido();
         this.add(contenido);
 

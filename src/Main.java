@@ -8,6 +8,6 @@ public class Main {
     public static Pantalla PANTALLA;
 
     public static void main(String[] args) {
-        PANTALLA = new Pantalla();
+        PANTALLA = new Pantalla("Calculadora");
     }
 }

@@ -75,7 +75,7 @@ public class CBoton extends JButton implements ActionListener {
             case _9: return "9";
             case Suma: return " + ";
             case Resta: return " - ";
-            case Mult: return " * ";
+            case Mult: return " x ";
             case Igual: return " = ";
             case Reset: return " Reset ";
             default: return " Error: ID not found ";
